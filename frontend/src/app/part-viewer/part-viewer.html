@@ -1,0 +1,28 @@
+<div class="viewer-container">
+  <canvas #rendererCanvas></canvas>
+  <div class="controls-panel">
+    <h3>Views</h3>
+    <button (click)="setView('front')">Front</button>
+    <button (click)="setView('top')">Top</button>
+    <button (click)="setView('side')">Right Side</button>
+    <button (click)="setView('reset')">Isometric Reset</button>
+
+    <hr>
+
+    <h3>Display Options</h3>
+    <button (click)="toggleWireframe()">Toggle Wireframe</button>
+    <button (click)="toggleBoundingBox()">Toggle Bounding Box</button>
+
+    <hr>
+
+    <h3>Camera Type</h3>
+    <button (click)="setCameraType('perspective')">Perspective</button>
+    <button (click)="setCameraType('orthographic')">Orthographic</button>
+
+    <hr>
+
+    <h3>Color Options</h3>
+    <label for="modelColor">Model Color:</label>
+    <input type="color" id="modelColor" [value]="modelColor" (input)="onColorChange($event)">
+  </div>
+</div>
