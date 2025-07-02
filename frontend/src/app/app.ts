@@ -10,7 +10,7 @@ import { PartViewerComponent } from './part-viewer/part-viewer';
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
+    
     CommonModule, // ADDED CommonModule for *ngIf
     PartViewerComponent // Keep this in imports, but render conditionally in HTML
   ],

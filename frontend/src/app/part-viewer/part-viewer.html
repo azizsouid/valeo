@@ -1,5 +1,27 @@
 <div class="viewer-container">
   <canvas #rendererCanvas></canvas>
+  
+  <!-- Dimension Display Panel -->
+  <div class="dimensions-panel" *ngIf="dimensions.width > 0">
+    <h3>Part Dimensions</h3>
+    <div class="dimension-item">
+      <span class="dimension-label">Width:</span>
+      <span class="dimension-value">{{ dimensions.width }} {{ dimensionUnit }}</span>
+    </div>
+    <div class="dimension-item">
+      <span class="dimension-label">Height:</span>
+      <span class="dimension-value">{{ dimensions.height }} {{ dimensionUnit }}</span>
+    </div>
+    <div class="dimension-item">
+      <span class="dimension-label">Depth:</span>
+      <span class="dimension-value">{{ dimensions.depth }} {{ dimensionUnit }}</span>
+    </div>
+    <div class="dimension-item">
+      <span class="dimension-label">Volume:</span>
+      <span class="dimension-value">{{ (dimensions.width * dimensions.height * dimensions.depth).toFixed(2) }} {{ dimensionUnit }}³</span>
+    </div>
+  </div>
+
   <div class="controls-panel">
     <h3>Views</h3>
     <button (click)="setView('front')">Front</button>
@@ -12,12 +34,43 @@
     <h3>Display Options</h3>
     <button (click)="toggleWireframe()">Toggle Wireframe</button>
     <button (click)="toggleBoundingBox()">Toggle Bounding Box</button>
+    <button (click)="toggleDimensions()" [class.active]="showDimensions">
+      {{ showDimensions ? 'Hide' : 'Show' }} Dimensions
+    </button>
+
+    <hr>
+
+    <!-- New Demolding Direction Controls -->
+    <h3>Demolding Direction</h3>
+    <button (click)="toggleDemoldingDirection()" [class.active]="showDemoldingDirection">
+      {{ showDemoldingDirection ? 'Hide' : 'Show' }} Direction
+    </button>
+    <div class="direction-options">
+      <button (click)="setDemoldingDirection('X')" [class.active]="demoldingDirection === 'X'">X Axis</button>
+      <button (click)="setDemoldingDirection('Y')" [class.active]="demoldingDirection === 'Y'">Y Axis</button>
+      <button (click)="setDemoldingDirection('Z')" [class.active]="demoldingDirection === 'Z'">Z Axis</button>
+    </div>
+
+    <hr>
+
+    <h3>Dimensions</h3>
+    <div class="dimension-controls">
+      <label for="dimensionUnit">Unit:</label>
+      <select id="dimensionUnit" [value]="dimensionUnit" (change)="onUnitChange($event)">
+        <option value="mm">Millimeters (mm)</option>
+        <option value="cm">Centimeters (cm)</option>
+        <option value="m">Meters (m)</option>
+        <option value="in">Inches (in)</option>
+        <option value="ft">Feet (ft)</option>
+        <option value="units">Units</option>
+      </select>
+    </div>
 
     <hr>
 
     <h3>Camera Type</h3>
-    <button (click)="setCameraType('perspective')">Perspective</button>
-    <button (click)="setCameraType('orthographic')">Orthographic</button>
+    <button (click)="setCameraType('perspective')" [class.active]="cameraType === 'perspective'">Perspective</button>
+    <button (click)="setCameraType('orthographic')" [class.active]="cameraType === 'orthographic'">Orthographic</button>
 
     <hr>
 
